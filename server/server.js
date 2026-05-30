@@ -1,4 +1,5 @@
 require('dotenv').config();
+const path = require('path');
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
@@ -12,6 +13,13 @@ app.use(express.json());
 app.use('/api/auth', authRoutes);
 app.use('/api/posts', postRoutes);
 app.use('/api/comments', commentRoutes);
+
+const clientDist = path.join(__dirname, '../client/dist');
+app.use(express.static(clientDist));
+app.get('*', (req, res) => {
+  if (req.path.startsWith('/api/')) return res.status(404).json({ message: 'Not found' });
+  res.sendFile(path.join(clientDist, 'index.html'));
+});
 
 const uri = process.env.MONGO_URI || 'mongodb://127.0.0.1:27017/blog';
 mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true });
