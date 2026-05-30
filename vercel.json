@@ -7,7 +7,7 @@
   "routes": [
     { "src": "/api/(.*)", "dest": "/server/server.js" },
     { "src": "/assets/(.*)", "dest": "/client/dist/assets/$1" },
-    { "src": "/(.*)\.(js|css|svg|png|jpg|jpeg|webp|json|ico|txt|map)", "dest": "/client/dist/$1" },
+    { "src": "/(.*)\\.(js|css|svg|png|jpg|jpeg|webp|json|ico|txt|map)", "dest": "/client/dist/$1" },
     { "handle": "filesystem" },
     { "src": "/(.*)", "dest": "/client/dist/index.html" }
   ]
